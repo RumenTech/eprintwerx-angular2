@@ -1,0 +1,10 @@
+.top-buffer {
+  margin-top: 15px;
+}
+    
+.logger-title {
+  background-color: lightgray;
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid;
+}

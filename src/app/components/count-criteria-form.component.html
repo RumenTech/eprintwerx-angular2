@@ -1,0 +1,95 @@
+<form (ngSubmit)="onSubmitForm()" class="form-horizontal" role="form">
+    <div class="row form-group">
+        <label class="col-sm-2">
+            CountCriteria Sample
+        </label>
+        <div class="col-sm-2">
+            <select
+                class="form-control"
+                #sampleType
+                (change)="onSampleTypeChange(sampleType.value)"
+            >
+                <option value="" disabled>-- Select Type --</option>
+                <option *ngFor="let type of sampleTypes" [value]="type.value">
+                    {{type.text}}
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="col-sm-12">
+                    CountCriteria JSON
+                </label>
+                <div class="col-sm-12">
+                    <textarea
+                        #json
+                        [(ngModel)]="model.criteriaString"
+                        (keyup)="onCriteriaChange(json.value)"
+                        class="form-control"
+                        rows="10"
+                        name="text">
+                    </textarea>
+                </div>
+                <div class="col-sm-12 checkbox text-right">
+                    <label>
+                        <input
+                            type="checkbox"
+                            [checked]="isValid"
+                            disabled
+                        />isValid?
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <br>
+            <div class="form-group">
+                <label class="col-sm-3">
+                    datasetCode
+                </label>
+                <div class="col-sm-9">
+                    <input class="form-control" name="datasetCode"
+                        [value]="model.datasetCode"
+                    />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3">
+                    geoCriteria
+                </label>
+                <div class="col-sm-9">
+                    <input class="form-control" name="text"
+                        [value]="model.geoCriteria"
+                    />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3">
+                    demoCriteria
+                </label>
+                <div class="col-sm-9">
+                    <input class="form-control" name="text"
+                        [value]="model.demoCriteria"
+                    />
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <button type="submit" class="btn btn-primary btn-block"
+                        [disabled]="!isValid"
+                    >
+                        Get Count
+                    </button>
+                </div>
+                <div class="col-sm-6 has-error"
+                    *ngIf="model.criteriaString && !isValid">
+                    <span class="help-block">JSON is not valid!</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

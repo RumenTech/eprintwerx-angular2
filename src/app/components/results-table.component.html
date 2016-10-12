@@ -1,0 +1,44 @@
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Type</th>
+      <th>Qty</th>
+      <th>List Download</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let row of items">
+      <td>
+        {{row.id}}
+      </td>
+      <td>
+        {{row.type}}
+      </td>
+      <td>
+        <span *ngIf="row.type === 'count'">
+          {{row.attributes.countQty || 'Pending...'}}
+        </span>
+        <span *ngIf="row.type === 'list'">
+          {{row.attributes.listQty || 'Pending...'}}
+        </span>
+      </td>
+      <td>
+        <span *ngIf="row.type === 'count'">
+          n/a
+        </span>
+        <a *ngIf="row.type === 'list'"
+          [href]="baseUrl + row.attributes.download"
+          target="_blank"
+          rel=noopener
+        >
+          Download File
+        </a>
+      </td>
+    </tr>
+    <tr *ngIf="!items.length">
+      <td colspan="4" style="text-align:center">No results</td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row top-buffer">
+    <div class="col-md-12">
+      <h1>
+        Eprintwerx Public API Test Harness v1
+      </h1>
+    </div>
+  </div>
+
+  <div class="row top-buffer">
+    <div class="col-md-12">
+      <count-criteria-form [handleSubmit]="handleCountCriteriaSubmission"></count-criteria-form>
+    </div>
+  </div>
+
+  <div class="row top-buffer">
+    <div class="col-md-12">
+      <results-table  [items]="results"></results-table>
+    </div>
+  </div>
+
+  <div class="row top-buffer">
+    <div class="col-md-12">
+      <list-criteria-form [handleSubmit]="handleListCriteriaSubmission" [countId]="currentCountId"></list-criteria-form>
+    </div>
+  </div>
+
+  <div class="row top-buffer">
+    <div class="col-md-12">
+      <h2 class="logger-title">
+        Browser Console Log
+      </h2>
+      Tap Start + Alt + I to open Developer Console
+    </div>
+  </div>
+</div>
