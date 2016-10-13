@@ -22,14 +22,14 @@ export class HarnessApiService {
 
   getEntity(type: string, id: string): Observable<Result> {
     const url = `${this.baseUrl}/${type}s/${id}`;
-    const slug = `[GET] /${type}s/${id}`;
+    const slug = `[GET]  /${type}s/${id}`;
     let headers = new Headers(this.headers);
     let options = new RequestOptions({ headers });
 
     console.log(`${slug} STARTED...`);
     return this.http.get(url, options)
                      .map((res:Response) => {
-                       console.log(`${slug} SUCCESS...`, res.json());
+                       console.log(`${slug} SUCCESS...Response`, res.json());
                        return this.parseResponse(type, res);
                      })
                      .catch((err:any) => {
@@ -44,10 +44,10 @@ export class HarnessApiService {
     let headers = new Headers(this.headers);
     let options = new RequestOptions({ headers });
 
-    console.log(`${slug} STARTED WITH...`, body);
+    console.log(`${slug} STARTED...Payload`, body);
     return this.http.post(url, body, options)
                     .map((res:Response) => {
-                      console.log(`${slug} SUCCESS...`, res.json());
+                      console.log(`${slug} SUCCESS...Response`, res.json());
                       return this.parseResponse(type, res);
                     })
                     .catch((err:any) => {
@@ -58,14 +58,14 @@ export class HarnessApiService {
 
   pollEntity(type: string, id: string): Observable<Result> {
     const url = `${this.baseUrl}/${type}s/queue-jobs/${id}`;
-    const slug = `[GET] /${type}s/queue-jobs/${id}`;
+    const slug = `[GET]  /${type}s/queue-jobs/${id}`;
     let headers = new Headers(this.headers);
     let options = new RequestOptions({ headers });
 
     console.log(`${slug} STARTED...`);
     return this.http.get(url, options)
                      .map((res:Response) => {
-                       console.log(`${slug} SUCCESS...`, res.json());
+                       console.log(`${slug} SUCCESS...Response`, res.json());
                        return this.parseResponse(type, res);
                      })
                      .catch((err:any) => {
