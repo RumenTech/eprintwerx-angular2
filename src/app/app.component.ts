@@ -10,12 +10,13 @@ import { Result } from './model/result';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  handleCountCriteriaSubmission: Function;
-  handleListCriteriaSubmission: Function;
-  currentCountId: string;
-  results: Array<Result> = [];
-  pollers: Object = {};
-  stoppers: Object = {};
+
+  private handleCountCriteriaSubmission: Function;
+  private handleListCriteriaSubmission: Function;
+  private currentCountId: string;
+  private results: Array<Result> = [];
+  private pollers: { [id: string]: Observable<Result> } = {};
+  private stoppers: { [id: string]: Subject<{}> } = {};
 
   constructor(private apiService: HarnessApiService) { }
 
@@ -46,7 +47,7 @@ export class AppComponent implements OnInit {
     );
   }
 
-  startPolling(result) {
+  startPolling(result: Result) {
     if ( result.attributes.status !== 'PENDING' ) {
       return;
     }

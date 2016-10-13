@@ -2,6 +2,11 @@ export class Result {
   constructor(
     public id: string,
     public type: string,
-    public attributes: Object
+    public attributes: {
+      status: string,
+      countQty: number,
+      listQty: number,
+      download: string
+    }
  ){}
 }

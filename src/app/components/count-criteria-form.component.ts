@@ -23,13 +23,13 @@ export class CountCriteriaForm implements OnInit {
   constructor(private criteriaService: CriteriaService) {
   }
 
-  onSampleTypeChange(value) {
+  onSampleTypeChange(value: string) {
     this.model.criteriaString = this.criteriaService.getCountSampleByType(value);
 
     this.onCriteriaChange(this.model.criteriaString);
   }
 
-  onCriteriaChange(value) {
+  onCriteriaChange(value: string) {
     this.isValid = this.criteriaService.isJsonValid(value);
 
     if (!this.isValid) {
@@ -61,7 +61,7 @@ export class CountCriteriaForm implements OnInit {
     });
   }
 
-  padExtraInfo(json) {
+  padExtraInfo(json: Object) {
     return {
       data: {
         type: 'counts',

@@ -7,7 +7,7 @@ import { Result } from '../model/result';
   templateUrl: './results-table.component.html',
 })
 export class ResultsTable { 
-  @Input() items: Array<Result>;
+  @Input() rows: Array<Result>;
   private baseUrl: string = 'https://test.dataselect.us';
 
   constructor() {

@@ -9,7 +9,7 @@
   </thead>
 
   <tbody>
-    <tr *ngFor="let row of items">
+    <tr *ngFor="let row of rows">
       <td>
         {{row.id}}
       </td>
@@ -32,12 +32,13 @@
           [href]="baseUrl + row.attributes.download"
           target="_blank"
           rel=noopener
+          style="text-decoration:underline"
         >
           Download File
         </a>
       </td>
     </tr>
-    <tr *ngIf="!items.length">
+    <tr *ngIf="!rows.length">
       <td colspan="4" style="text-align:center">No results</td>
     </tr>
   </tbody>

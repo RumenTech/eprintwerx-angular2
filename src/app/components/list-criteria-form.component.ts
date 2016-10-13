@@ -26,7 +26,7 @@ export class ListCriteriaForm implements OnInit {
   constructor(private criteriaService: CriteriaService) {
   }
 
-  onCriteriaChange(value) {
+  onCriteriaChange(value: string) {
     this.isValid = this.criteriaService.isJsonValid(value);
 
     if (!this.isValid) {
@@ -78,7 +78,7 @@ export class ListCriteriaForm implements OnInit {
     }
   }
 
-  padExtraInfo(json) {
+  padExtraInfo(json: Object) {
     return {
       data: {
         type: 'list',

@@ -60,15 +60,15 @@ export class CriteriaService {
     ];
   }
 
-  getCountSampleByType(type) {
+  getCountSampleByType(type: string): string {
     return this.countSample[type] || '';
   }
 
-  getListSample() {
+  getListSample(): string {
     return this.listSample;
   }
 
-  parseGeoCriteria(json) {
+  parseGeoCriteria(json): string {
     let list = [];
     if ( json.geoCriteria && Array.isArray(json.geoCriteria.children) ) {
       list = json.geoCriteria.children.map( (item) => item.criterionCode );
@@ -76,7 +76,7 @@ export class CriteriaService {
     return list.join(', ');
   }
 
-  parseDemoCriteria(json) {
+  parseDemoCriteria(json): string {
     let list = [];
     if ( json.demoCriteria && Array.isArray(json.demoCriteria.children) ) {
       list = json.demoCriteria.children.map( (item) => item.criterionCode );
@@ -84,7 +84,7 @@ export class CriteriaService {
     return list.join(', ');
   }
 
-  parseCountCriteria(str) {
+  parseCountCriteria(str: string) {
     const parsedJson = JSON.parse(str) || {};
 
     return {
@@ -94,7 +94,7 @@ export class CriteriaService {
     };
   }
 
-  parseListCriteria(str) {
+  parseListCriteria(str: string) {
     const parsedJson = JSON.parse(str) || {};
 
     return {
@@ -106,7 +106,7 @@ export class CriteriaService {
     };
   }
 
-  isJsonValid(str) {
+  isJsonValid(str: string): boolean {
     try {
       JSON.parse(str);
     } catch (e) {
