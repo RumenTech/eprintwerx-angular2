@@ -9,7 +9,7 @@
 
   <div class="row top-buffer">
     <div class="col-md-12">
-      <count-criteria-form [handleSubmit]="handleCountCriteriaSubmission"></count-criteria-form>
+      <count-criteria-form (onSubmitForm)="onSubmitCountCriteriaForm($event)"></count-criteria-form>
     </div>
   </div>
 
@@ -21,7 +21,7 @@
 
   <div class="row top-buffer">
     <div class="col-md-12">
-      <list-criteria-form [handleSubmit]="handleListCriteriaSubmission" [countId]="currentCountId"></list-criteria-form>
+      <list-criteria-form (onSubmitForm)="onSubmitListCriteriaForm($event)" [countId]="currentCountId"></list-criteria-form>
     </div>
   </div>
 

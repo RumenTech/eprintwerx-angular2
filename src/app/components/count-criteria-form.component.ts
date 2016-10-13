@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 import { EmitterService } from '../services/emitter.service';
@@ -10,6 +10,7 @@ import { CriteriaService } from '../services/criteria.service';
 })
 export class CountCriteriaForm implements OnInit { 
   @Input() handleSubmit: Function;
+  @Output() onSubmitForm = new EventEmitter<Object>();
 
   private sampleTypes = [];
   private isValid = false;
@@ -44,7 +45,7 @@ export class CountCriteriaForm implements OnInit {
     this.model.demoCriteria = demoCriteria;
   }
 
-  onSubmitForm() {
+  submitForm() {
     if ( !this.criteriaService.isJsonValid(this.model.criteriaString) ) {
       return;
     }
@@ -52,7 +53,7 @@ export class CountCriteriaForm implements OnInit {
     const parsedJson = JSON.parse(this.model.criteriaString);
     const dataToSend = this.padExtraInfo(parsedJson);
 
-    this.handleSubmit(dataToSend);
+    this.onSubmitForm.emit(dataToSend);
   }
 
   ngOnInit() {

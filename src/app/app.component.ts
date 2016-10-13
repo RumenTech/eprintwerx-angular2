@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable, Subject } from 'rxjs/Rx';
 
 import { HarnessApiService } from './services/harness-api.service';
@@ -9,10 +9,8 @@ import { Result } from './model/result';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
-  private handleCountCriteriaSubmission: Function;
-  private handleListCriteriaSubmission: Function;
   private currentCountId: string;
   private results: Array<Result> = [];
   private pollers: { [id: string]: Observable<Result> } = {};
@@ -20,12 +18,7 @@ export class AppComponent implements OnInit {
 
   constructor(private apiService: HarnessApiService) { }
 
-  ngOnInit() {
-    this.handleCountCriteriaSubmission = this.onSubmitCountCriteria.bind(this);
-    this.handleListCriteriaSubmission = this.onSubmitListCriteria.bind(this);
-  }
-
-  onSubmitCountCriteria(payload: Object) {
+  onSubmitCountCriteriaForm(payload: Object) {
     let operation:Observable<Result> = this.apiService.createEntity('count', payload);
     operation.subscribe(
       result => {
@@ -37,7 +30,7 @@ export class AppComponent implements OnInit {
     );
   }
 
-  onSubmitListCriteria(payload: Object) {
+  onSubmitListCriteriaForm(payload: Object) {
     let operation:Observable<Result> = this.apiService.createEntity('list', payload);
     operation.subscribe(
       result => {
