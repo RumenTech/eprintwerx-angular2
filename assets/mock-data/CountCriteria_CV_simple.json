@@ -1,0 +1,36 @@
+{
+	"datasetCode": "CONSUMER",
+	"geoCriteria": {
+		"criterionCode": "geoCriteria",
+		"binaryOperator": "OR",
+		"children": [{
+			"criterionCode": "CBSA",
+			"values": ["14460",
+			"28420"]
+		},
+		{
+			"criterionCode": "zipCode",
+			"values": ["90210",
+			"90300-90400"]
+		}]
+	},
+	"demoCriteria": {
+		"criterionCode": "demoCriteria",
+		"binaryOperator": "AND",
+		"children": [{
+			"criterionCode": "dwellingType",
+			"values": ["S",
+			"A",
+			"P"]
+		},
+		{
+			"criterionCode": "recipientReliabilityCode",
+			"values": ["1",
+			"2"]
+		},
+		{
+			"criterionCode": "onePerLivingUnit",
+			"values": ["1"]
+		}]
+	}
+}
