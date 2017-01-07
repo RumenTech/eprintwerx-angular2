@@ -61,7 +61,7 @@ export class ListCriteriaForm implements OnInit {
 
   ngOnInit() {
     EmitterService.get('JSON_FILES_LOADED').subscribe(() => {
-      this.sample = this.criteriaService.getListSample();
+      this.sample = this.criteriaService.getListCriteria();
     });
   }
 

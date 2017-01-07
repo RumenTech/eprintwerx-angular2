@@ -1,0 +1,22 @@
+{
+  "datasetCode": "NEWPARENT",
+  "demoCriteria": {
+    "criterionCode": "DemoCriteria",
+    "prependOperator": "AND",
+    "children": [{
+      "criterionCode": "Child1FirstbornIndicator",
+      "prependOperator": "AND",
+      "values": ["M","F"]
+    },
+      {
+        "criterionCode": "prenatalflag",
+        "prependOperator": "AND",
+        "values": ["N"]
+      },
+      {
+        "criterionCode": "CAPETenancySFDUsOwnerOccupied",
+        "prependOperator": "AND",
+        "values": ["0978","0976"]
+      }]
+  }
+}

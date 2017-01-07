@@ -1,0 +1,37 @@
+{
+	"datasetCode": "BUSINESS",
+	"geoCriteria": {
+		"criterionCode": "GeoCriteria",
+		"prependOperator": "AND",
+		"children": [{
+			"criterionCode": "CBSA",
+			"prependOperator": "OR",
+			"values": ["14460",
+			"28420"]
+		},
+		{
+			"criterionCode": "ZipCode",
+			"prependOperator": "OR",
+			"values": ["90210","90211"]
+		}]
+	},
+	"demoCriteria": {
+		"criterionCode": "DemoCriteria",
+		"prependOperator": "AND",
+		"children": [{
+			"criterionCode": "EliminateIncludeTelephoneDuplicates",
+			"prependOperator": "AND",
+			"values": ["1"]
+		},
+		{
+			"criterionCode": "BISaddresstypeindicator",
+			"prependOperator": "AND",
+			"values": ["H","S"]
+		},
+		{
+			"criterionCode": "BISDBFileCode",
+			"prependOperator": "AND",
+			"values": ["U"]
+		}]
+	}
+}

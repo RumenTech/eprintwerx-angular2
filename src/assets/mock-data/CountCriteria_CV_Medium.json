@@ -1,0 +1,72 @@
+{
+	"datasetCode": "CONSUMER",
+	"geoCriteria": {
+		"criterionCode": "Group",
+		"prependOperator": "AND",
+		"children": [{
+			"criterionCode": "Group",
+			"prependOperator": "AND",
+			"children": [{
+				"criterionCode": "CBSA",
+				"prependOperator": "OR",
+				"values": ["14460",
+				"28420"]
+			},
+			{
+				"criterionCode": "ZipCode",
+				"prependOperator": "OR",
+				"values": ["90210","10100-10200"]
+			},
+			{
+				"criterionCode": "State",
+				"prependOperator": "OR",
+				"values": ["AZ",
+				"NY"]
+			}]
+		},{
+			"criterionCode": "Group",
+			"prependOperator": "AND",
+			"children": [{
+				"criterionCode": "Zip4",
+				"prependOperator": "AND",
+				"isNull": false
+			}]
+		}]
+	},
+	"demoCriteria": {
+		"criterionCode": "Group",
+		"prependOperator": "AND",
+		"children": [{
+			"criterionCode": "DwellingType",
+			"prependOperator": "AND",
+			"values": ["A",
+			"S",
+			"P"]
+		},
+		{
+			"criterionCode": "OnePerLivingUnit",
+			"prependOperator": "AND",
+			"values": ["1"]
+		},
+		{
+			"criterionCode": "RecipientReliabilityCode",
+			"prependOperator": "AND",
+			"values": ["1",
+			"2"]
+		},
+		{
+			"criterionCode": "OwnPets",
+			"prependOperator": "AND",
+			"children": [{
+				"criterionCode": "OwnACat",
+				"prependOperator": "OR",
+				"values": ["Y"]
+			},
+			{
+				"criterionCode": "OwnAPet",
+				"prependOperator": "OR",
+				"values": ["Y"]
+			}]
+		}]
+	}
+}

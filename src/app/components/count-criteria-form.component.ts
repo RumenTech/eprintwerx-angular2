@@ -12,7 +12,7 @@ export class CountCriteriaForm implements OnInit {
   @Input() handleSubmit: Function;
   @Output() onSubmitForm = new EventEmitter<Object>();
 
-  private sampleTypes = [];
+  private countSamples = [];
   private isValid = false;
   private model = {
     datasetCode: '',
@@ -24,21 +24,21 @@ export class CountCriteriaForm implements OnInit {
   constructor(private criteriaService: CriteriaService) {
   }
 
-  onSampleTypeChange(value: string) {
-    this.model.criteriaString = this.criteriaService.getCountSampleByType(value);
+  onSampleTypeChange(type: string) {
+    this.model.criteriaString = this.criteriaService.getCountCriteriaByType(type);
 
     this.onCriteriaChange(this.model.criteriaString);
   }
 
-  onCriteriaChange(value: string) {
-    this.isValid = this.criteriaService.isJsonValid(value);
+  onCriteriaChange(text: string) {
+    this.isValid = this.criteriaService.isJsonValid(text);
 
     if (!this.isValid) {
       return;
     }
 
     const { datasetCode, geoCriteria, demoCriteria } = 
-                                this.criteriaService.parseCountCriteria(value);
+                                this.criteriaService.parseCountCriteria(text);
 
     this.model.datasetCode = datasetCode;
     this.model.geoCriteria = geoCriteria;
@@ -58,7 +58,7 @@ export class CountCriteriaForm implements OnInit {
 
   ngOnInit() {
     EmitterService.get('JSON_FILES_LOADED').subscribe(() => {
-      this.sampleTypes = this.criteriaService.getCountSampleTypes();  
+      this.countSamples = this.criteriaService.getCountSamples();
     });
   }
 

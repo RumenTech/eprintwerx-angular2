@@ -12,10 +12,9 @@ export class HarnessApiService {
 
   constructor (private http: Http) {}
 
-  private baseUrl = 'https://test.dataselect.us/fetest/v1';
+  private baseUrl = 'https://test.dataselect.us/public-staging/v1';
   private headers = {
-    'userToken': 'any',
-    'x-api-key': 'JyO3NvBVEy1vOljETe8T920rEJ0BdirK5dDlSM0J',
+    'x-api-key': 'Egqw4MFFvu3Lgv65tCenr1pwbUN1t4Ee6KcPI0ZK',
     'Content-Type': 'application/json',
     'Accept': 'application/json',
   };

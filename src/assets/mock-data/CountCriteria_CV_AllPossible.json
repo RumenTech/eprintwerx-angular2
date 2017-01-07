@@ -1,0 +1,271 @@
+{
+	"datasetCode": "CONSUMER",
+	"geoCriteria": {
+		"criterionCode": "Group",
+		"prependOperator": "AND",
+		"children": [{
+			"criterionCode": "Group",
+			"prependOperator": "AND",
+			"children": [{
+				"criterionCode": "ZipCode",
+				"prependOperator": "OR",
+				"values": ["90210",
+				"90215",
+				"10102",
+				"90300-90400",
+				"10100-10200"],
+				"omitValues": ["90345"]
+			},
+			{
+				"criterionCode": "State",
+				"prependOperator": "OR",
+				"values": ["AZ",
+				"NY"]
+			},
+			{
+				"criterionCode": "StateAndCity",
+				"prependOperator": "OR",
+				"values": ["AZ:SCOTTSDALE",
+				"NY:NEW YORK"]
+			},
+			{
+				"criterionCode": "Radius",
+				"prependOperator": "OR",
+				"values": [{
+					"centroidType": "ZC",
+					"centroid": {
+						"zipCode": "10101",
+						"carrierRoute": "C201"
+					},
+					"radiusType": "M",
+					"radiusValue": "10",
+					"doNotCrossState": "Y"
+				},
+				{
+					"centroidType": "Z9",
+					"centroid": {
+						"zip4": "101011209"
+					},
+					"radiusType": "D",
+					"radiusValue": "20",
+					"doNotCrossState": "N"
+				}]
+			},
+			{
+				"criterionCode": "Polygon",
+				"prependOperator": "OR",
+				"values": [{
+					"mappings": [{
+						"latitude": "40.73061",
+						"longitude": "-73.935242"
+					},
+					{
+						"latitude": "60.734550",
+						"longitude": "-95.3456422"
+					},
+					{
+						"latitude": "50.23566",
+						"longitude": "-90.123457"
+					},
+					{
+						"latitude": "38.234454",
+						"longitude": "-75.453433"
+					}]
+				}],
+				"omitValues": [{
+					"mappings": [{
+						"latitude": "44.123424",
+						"longitude": "-75.444222"
+					},
+					{
+						"latitude": "55.676550",
+						"longitude": "-78.365722"
+					},
+					{
+						"latitude": "50.676656",
+						"longitude": "-80.167557"
+					}]
+					
+				}]
+			}]
+		},{
+			"criterionCode": "Group",
+			"prependOperator": "AND",
+			"children": [
+				{
+					"criterionCode": "Zip4",
+					"prependOperator": "AND",
+					"isNull": false
+				}
+			]
+		}]
+	},
+	"demoCriteria": {
+		"criterionCode": "Group",
+		"prependOperator": "AND",
+		"children": [{
+			"criterionCode": "DwellingType",
+			"prependOperator": "AND",
+			"values": ["S",
+			"A",
+			"P"]
+		},
+		{
+			"criterionCode": "RecipientReliabilityCode",
+			"prependOperator": "AND",
+			"values": ["1",
+			"2"]
+		},
+		{
+			"criterionCode": "OnePerLivingUnit",
+			"prependOperator": "AND",
+			"values": ["1"]
+		},
+		{
+			"criterionCode": "APMFullSizeVan",
+			"prependOperator": "AND",
+			"values": ["1",
+			"2",
+			"5"]
+		},
+		{
+            "criterionCode": "ChildBirthYearAndMonth",
+            "prependOperator": "AND",
+            "values": [
+                [
+                    {
+                        "criterionCode": "ChildAge",
+                        "prependOperator": "AND",
+                        "values": [
+                            {
+                                "ageType": "exact",
+                                "months": ["1","9","5"],
+                                "birthDate": "201305-201506"
+                            }
+                        ]
+                    },
+                    {
+                        "criterionCode": "OfferTypes",
+                        "prependOperator": "AND",
+                        "children": [
+                            {
+                                "criterionCode": "OffertypeMagazines",
+                                "prependOperator": "OR",
+                                "values": ["1"]
+                            },
+                            {
+                                "criterionCode": "OffertypeInternetBirth",
+                                "prependOperator": "OR",
+                                "values": ["1"]
+                            }
+                        ]
+                    }
+                ],
+                [
+                    {
+                        "criterionCode": "ChildAge",
+                        "prependOperator": "AND",
+                        "values": [
+                            {
+                                "ageType": "exact",
+                                "months": [ "8","9"],
+                                "birthDate": "201505-201606"
+                            }
+                        ]
+                    },
+                    {
+                        "criterionCode": "OfferTypes",
+                        "prependOperator": "AND",
+                        "children": [
+                            {
+                                "criterionCode": "OffertypeBabyFormula",
+                                "prependOperator": "OR",
+                                "values": ["1"]
+                            },
+                            {
+                                "criterionCode": "OffertypeDiapers",
+                                "prependOperator": "OR",
+                                "values": ["1"]
+                            }
+                        ]
+                    }
+                ]
+            ]
+        },
+		{
+			"criterionCode": "ChildrenAge03Score",
+			"prependOperator": "AND",
+			"values": ["1-10"]
+		},
+		{
+		    "criterionCode": "Person1BirthYearandMonth",
+		    "prependOperator": "AND",
+		    "values": [{
+		        "birthDate": "199006-201006",
+		        "age": "22-46",
+		        "months": ["7","8"],
+		        "ageType" : "exact"
+		    }]
+		},
+		{
+			"criterionCode": "RealtyModelEstAvailableEquity",
+			"prependOperator": "AND",
+			"children": [{
+				"criterionCode": "RealtyModelConfidenceCodev2",
+				"prependOperator": "AND",
+				"values": ["1",
+				"3"]
+			},
+			{
+				"criterionCode": "RealtyModelEstAvailableEquitycodeV2",
+				"prependOperator": "AND",
+				"values": ["K",
+				"M"]
+			}]
+		},
+		{
+			"criterionCode": "RealtyModelEstCurLoantoValue",
+			"prependOperator": "AND",
+			"children": [{
+				"criterionCode": "RealtyModelConfidenceCodev2",
+				"prependOperator": "AND",
+				"values": ["2",
+				"3"]
+			},
+			{
+				"criterionCode": "RealtyModelEstCurLoantoValueRatio",
+				"prependOperator": "AND",
+				"values": ["10-100"]
+			}]
+		},
+		{
+			"criterionCode": "OwnPets",
+			"prependOperator": "AND",
+			"children": [{
+				"criterionCode": "OwnACat",
+				"prependOperator": "OR",
+				"values": ["Y"]
+			},
+			{
+				"criterionCode": "OwnAPet",
+				"prependOperator": "OR",
+				"values": ["Y"]
+			}]
+		},
+		{
+			"criterionCode": "Phonenumber1",
+			"prependOperator": "OR",
+			"values": ["1"]
+		},
+		{
+			"criterionCode": "Gender",
+			"prependOperator": "AND",
+			"values": ["M","F"]
+		},
+		{
+			"criterionCode": "MaritalStatus",
+			"prependOperator": "AND",
+			"values": ["1M","5M"]
+		}]
+	}
+}

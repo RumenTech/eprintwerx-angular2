@@ -1,0 +1,37 @@
+{
+	"datasetCode": "NEWPARENT",
+	"geoCriteria": {
+		"criterionCode": "GeoCriteria",
+		"prependOperator": "AND",
+		"children": [{
+			"criterionCode": "CBSA",
+			"prependOperator": "OR",
+			"values": ["14460",
+			"28420"]
+		},
+		{
+			"criterionCode": "ZipCode",
+			"prependOperator": "OR",
+			"values": ["90210","90211"]
+		}]
+	},
+	"demoCriteria": {
+		"criterionCode": "DemoCriteria",
+		"prependOperator": "AND",
+		"children": [{
+			"criterionCode": "Child1FirstbornIndicator",
+			"prependOperator": "AND",
+			"values": ["M","F"]
+		},
+			{
+				"criterionCode": "prenatalflag",
+				"prependOperator": "AND",
+				"values": ["N"]
+			},
+			{
+				"criterionCode": "CAPETenancySFDUsOwnerOccupied",
+				"prependOperator": "AND",
+				"values": ["0978","0976"]
+			}]
+	}
+}

@@ -10,8 +10,8 @@
                 (change)="onSampleTypeChange(sampleType.value)"
             >
                 <option value="" disabled>-- Select Type --</option>
-                <option *ngFor="let type of sampleTypes" [value]="type.value">
-                    {{type.text}}
+                <option *ngFor="let sample of countSamples" [value]="sample.type">
+                    {{sample.display}}
                 </option>
             </select>
         </div>

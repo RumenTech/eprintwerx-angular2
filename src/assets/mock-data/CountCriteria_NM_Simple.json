@@ -1,0 +1,22 @@
+{
+  "datasetCode": "NEWMOVER",
+  "demoCriteria": {
+    "criterionCode": "DemoCriteria",
+    "prependOperator": "AND",
+    "children": [{
+      "criterionCode": "GreenAware",
+      "prependOperator": "AND",
+      "values": ["3"]
+    },
+      {
+        "criterionCode": "Gender",
+        "prependOperator": "AND",
+        "values": ["F","M"]
+      },
+      {
+        "criterionCode": "Person1EthnicLanguagePreference",
+        "prependOperator": "AND",
+        "values": ["01"]
+      }]
+  }
+}
