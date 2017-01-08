@@ -12,7 +12,7 @@ export class CriteriaService {
   private listSampleCriteria = '';
   private countSampleCriteria = { };
   private countSamples = [
-    { type: 'CV_SIMPLE',   display: 'Consumer View - Simple',        file: 'CountCriteria_CV_Simple.json' },
+    { type: 'CV_SIMPLE',   display: 'Consumer View - Simple',        file: 'CountCriteria_CV_simple.json' },
     { type: 'CV_MEDIUM',   display: 'Consumer View - Medium',        file: 'CountCriteria_CV_Medium.json' },
     { type: 'CV_COMPLEX',  display: 'Consumer View - Advanced',      file: 'CountCriteria_CV_AllPossible.json' },
     { type: 'NM_SIMPLE',   display: 'New Movers - Simple',           file: 'CountCriteria_NM_Simple.json' },
