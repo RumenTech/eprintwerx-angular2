@@ -1,7 +1,7 @@
 {
-	"datasetCode": "CONSUMER",
+	"datasetCode": "BUSINESS",
 	"geoCriteria": {
-		"criterionCode": "Group",
+		"criterionCode": "GeoCriteria",
 		"prependOperator": "AND",
 		"children": [{
 			"criterionCode": "CBSA",
@@ -12,30 +12,26 @@
 		{
 			"criterionCode": "ZipCode",
 			"prependOperator": "OR",
-			"values": ["90210",
-			"90300-90400"]
+			"values": ["90210","90211"]
 		}]
 	},
 	"demoCriteria": {
-		"criterionCode": "Group",
+		"criterionCode": "DemoCriteria",
 		"prependOperator": "AND",
 		"children": [{
-			"criterionCode": "DwellingType",
-			"prependOperator": "AND",
-			"values": ["S",
-			"A",
-			"P"]
-		},
-		{
-			"criterionCode": "RecipientReliabilityCode",
-			"prependOperator": "AND",
-			"values": ["1",
-			"2"]
-		},
-		{
-			"criterionCode": "OnePerLivingUnit",
+			"criterionCode": "EliminateIncludeTelephoneDuplicates",
 			"prependOperator": "AND",
 			"values": ["1"]
+		},
+		{
+			"criterionCode": "BISaddresstypeindicator",
+			"prependOperator": "AND",
+			"values": ["H","S"]
+		},
+		{
+			"criterionCode": "BISDBFileCode",
+			"prependOperator": "AND",
+			"values": ["U"]
 		}]
 	}
 }

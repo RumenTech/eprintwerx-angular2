@@ -1,0 +1,32 @@
+{
+	"datasetCode": "NEWHOMEOWNER",
+	"geoCriteria": {
+		"criterionCode": "GeoCriteria",
+		"prependOperator": "AND",
+		"children": [
+		{
+			"criterionCode": "ZipCode",
+			"prependOperator": "OR",
+			"values": ["90210","90211"]
+		}]
+	},
+	"demoCriteria": {
+		"criterionCode": "DemoCriteria",
+		"prependOperator": "AND",
+		"children": [{
+			"criterionCode": "MortgageHomePurchaseMortgageLendernameV2",
+			"prependOperator": "AND",
+			"values": ["BANK OF AMERICA"]
+		},
+			{
+				"criterionCode": "Gender",
+				"prependOperator": "AND",
+				"values": ["F"]
+			},
+			{
+				"criterionCode": "NHOonlyfinancialtransactionflag",
+				"prependOperator": "AND",
+				"values": ["Y"]
+			}]
+	}
+}

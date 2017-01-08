@@ -1,0 +1,140 @@
+{
+  "datasetCode": "NEWPARENT",
+  "geoCriteria": {
+    "criterionCode": "Group",
+    "prependOperator": "AND",
+    "children": [{
+      "criterionCode": "Group",
+      "prependOperator": "AND",
+      "children": [{
+        "criterionCode": "ZipCode",
+        "prependOperator": "OR",
+        "values": ["90210",
+          "90215",
+          "10102",
+          "90300-90400",
+          "10100-10200"],
+        "omitValues": ["90345"]
+      },
+        {
+          "criterionCode": "State",
+          "prependOperator": "OR",
+          "values": ["AZ",
+            "NY"]
+        },
+        {
+          "criterionCode": "City",
+          "prependOperator": "OR",
+          "values": ["AZ:SCOTTSDALE",
+            "NY:NEW YORK"]
+        },
+        {
+          "criterionCode": "Radius",
+          "prependOperator": "OR",
+          "values": [{
+            "centroidType": "ZC",
+            "centroid": {
+              "zipCode": "10101",
+              "carrierRoute": "C201"
+            },
+            "radiusType": "M",
+            "radiusValue": "10",
+            "doNotCrossState": "Y"
+          },
+            {
+              "centroidType": "Z9",
+              "centroid": {
+                "zip4": "101011209"
+              },
+              "radiusType": "D",
+              "radiusValue": "20",
+              "doNotCrossState": "N"
+            }]
+        },
+        {
+          "criterionCode": "Polygon",
+          "prependOperator": "OR",
+          "values": [{
+            "mappings": [{
+              "latitude": "40.73061",
+              "longitude": "-73.935242"
+            },
+              {
+                "latitude": "60.734550",
+                "longitude": "-95.3456422"
+              },
+              {
+                "latitude": "50.23566",
+                "longitude": "-90.123457"
+              },
+              {
+                "latitude": "38.234454",
+                "longitude": "-75.453433"
+              }]
+          }],
+          "omitValues": [{
+            "mappings": [{
+              "latitude": "44.123424",
+              "longitude": "-75.444222"
+            },
+              {
+                "latitude": "55.676550",
+                "longitude": "-78.365722"
+              },
+              {
+                "latitude": "50.676656",
+                "longitude": "-80.167557"
+              }]
+
+          }]
+        }]
+    },{
+      "criterionCode": "Group",
+      "prependOperator": "AND",
+      "children": [
+        {
+          "criterionCode": "Zip4",
+          "prependOperator": "AND",
+          "isNull": false
+        }
+      ]
+    }]
+  },
+  "demoCriteria": {
+    "criterionCode": "Group",
+    "prependOperator": "AND",
+    "children": [
+      {
+        "criterionCode": "Child1FirstbornIndicator",
+        "prependOperator": "AND",
+        "values": ["M","F"]
+      },
+      {
+        "criterionCode": "prenatalflag",
+        "prependOperator": "AND",
+        "values": ["N"]
+      },
+      {
+        "criterionCode": "CAPETenancySFDUsOwnerOccupied",
+        "prependOperator": "AND",
+        "values": ["0978","0976"]
+      },
+      {
+        "criterionCode": "Group",
+        "prependOperator": "AND",
+        "children": [
+          {
+            "criterionCode": "GreenAwareTiers",
+            "prependOperator": "OR",
+            "values": ["38","4","12"]
+          },
+          {
+            "criterionCode": "DSEDiscretionarySpendEstimatelevel",
+            "prependOperator": "OR",
+            "values": ["L"]
+          }
+          ]
+      }
+    ]
+  }
+}

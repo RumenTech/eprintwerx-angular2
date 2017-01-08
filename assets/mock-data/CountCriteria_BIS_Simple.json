@@ -1,0 +1,22 @@
+{
+	"datasetCode": "BUSINESS",
+	"demoCriteria": {
+		"criterionCode": "DemoCriteria",
+		"prependOperator": "AND",
+		"children": [{
+			"criterionCode": "EliminateIncludeTelephoneDuplicates",
+			"prependOperator": "AND",
+			"values": ["1"]
+		},
+		{
+			"criterionCode": "PrimaryMailConfidence",
+			"prependOperator": "AND",
+			"values": ["1","2"]
+		},
+		{
+			"criterionCode": "BISDBFileCode",
+			"prependOperator": "AND",
+			"values": ["U"]
+		}]
+	}
+}
