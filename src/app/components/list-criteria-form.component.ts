@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, Output, OnInit, OnChanges } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 
 import { EmitterService } from '../services/emitter.service';
 import { CriteriaService } from '../services/criteria.service';
@@ -9,7 +8,6 @@ import { CriteriaService } from '../services/criteria.service';
   templateUrl: './list-criteria-form.component.html',
 })
 export class ListCriteriaForm implements OnInit { 
-  @Input() countId: string;
   @Output() onSubmitForm = new EventEmitter<Object>();
 
   private isValid = false;
@@ -54,7 +52,10 @@ export class ListCriteriaForm implements OnInit {
     }
 
     const parsedJson = JSON.parse(this.model.criteriaString);
-    const dataToSend = this.padExtraInfo(parsedJson);
+    const dataToSend = {
+      datasetCode: parsedJson.datasetCode,
+      payload: this.padExtraInfo(parsedJson),
+    };
 
     this.onSubmitForm.emit(dataToSend);
   }
@@ -63,29 +64,53 @@ export class ListCriteriaForm implements OnInit {
     EmitterService.get('JSON_FILES_LOADED').subscribe(() => {
       this.sample = this.criteriaService.getListCriteria();
     });
-  }
 
-  ngOnChanges(changes) {
-    const countIds = changes.countId;
-
-    if ( countIds && countIds.previousValue !== countIds.currentValue && countIds.currentValue !== undefined ) {
+    EmitterService.get('ON_CHANGE_COUNT').subscribe((data) => {
       const json = JSON.parse(this.sample);
-      json.countId = countIds.currentValue;
+      json.countId = data.countId;
+      json.datasetCode = data.datasetCode;
 
       this.model.criteriaString = JSON.stringify(json, null, '\t');
 
       this.onCriteriaChange(this.model.criteriaString);
-    }
+    });
   }
 
   padExtraInfo(json: Object) {
     return {
       data: {
-        type: 'list',
+        type: 'orders',
         attributes: {
-          listCriteria: json,
+          source: 'API',
+          listCriterias: [ json ],
           tags: {
-            name: 'MyList#1'
+            name: 'AugOrder1'
+          },
+          billingData: {
+            salesPerson: 'PS1',
+            firstName: 'John',
+            lastName: 'Doe',
+            company: 'Apple',
+            address1: '1 Infinite Loop',
+            address2: 'Suite 100',
+            city: 'San Francisco',
+            country: 'USA',
+            state: 'CA',
+            zip: '90210',
+            phone: '555-555-5555',
+            fax: '555-555-5566',
+            email: 'john.doe@apple.com',
+            poNumber: 'Apple123',
+            description: 'Standard Optional Description',
+            endUser: 'John',
+            mailerName: 'Mailer1',
+            mailerDate: '2016-04-29T10:25:13Z',
+            invoiceGroup: 'INV001',
+            coupon: 'MyOffer1',
+            billingNotes: 'Some Billing Note',
+            otherEmails: 'john.doe@apple.com;jane.doe@apple.com',
+            otherEmailSubject: 'Your Order Number {ORDERNO} is now ready for download',
+            priceSchema: 'PS1'
           }
         }
       }

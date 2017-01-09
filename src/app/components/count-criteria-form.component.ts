@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
 
 import { EmitterService } from '../services/emitter.service';
 import { CriteriaService } from '../services/criteria.service';
@@ -51,7 +50,10 @@ export class CountCriteriaForm implements OnInit {
     }
 
     const parsedJson = JSON.parse(this.model.criteriaString);
-    const dataToSend = this.padExtraInfo(parsedJson);
+    const dataToSend = {
+      datasetCode: parsedJson.datasetCode,
+      payload: this.padExtraInfo(parsedJson)
+    };
 
     this.onSubmitForm.emit(dataToSend);
   }

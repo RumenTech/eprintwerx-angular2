@@ -1,35 +1,47 @@
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
-      <th>ID</th>
-      <th>Type</th>
-      <th>Qty</th>
-      <th>List Download</th>
+      <th width="35%">ID</th>
+      <th width="10%">Type</th>
+      <th width="20%">Dataset Code</th>
+      <th width="10%">Quantity</th>
+      <th width="25%">List Download</th>
     </tr>
   </thead>
 
   <tbody>
     <tr *ngFor="let row of rows">
       <td>
-        {{row.id}}
+        <span *ngIf="row.type === 'count' && row.attributes.status === 'OK'">
+          <a
+            [href]=""
+            (click)="onSelectCountResult(row)"
+            style="cursor: pointer"
+          >
+            {{row.id}}
+          </a>
+        </span>
+        <span *ngIf="!(row.type === 'count' && row.attributes.status === 'OK')">
+          {{row.id}}
+        </span>
       </td>
       <td>
         {{row.type}}
       </td>
       <td>
-        <span *ngIf="row.type === 'count'">
-          {{row.attributes.countQty || 'Pending...'}}
+        {{row.datasetCode}}
+      </td>
+      <td>
+        <span *ngIf="row.attributes.status === 'OK'">
+          {{row.attributes.quantity}}
         </span>
-        <span *ngIf="row.type === 'list'">
-          {{row.attributes.listQty || 'Pending...'}}
+        <span *ngIf="row.attributes.status !== 'OK'">
+          {{row.attributes.status}}...
         </span>
       </td>
       <td>
-        <span *ngIf="row.type === 'count'">
-          n/a
-        </span>
-        <a *ngIf="row.type === 'list'"
-          [href]="baseUrl + row.attributes.download"
+        <a *ngIf="row.type === 'order' && row.attributes.status === 'OK'"
+          [href]="row.attributes.s3File"
           target="_blank"
           rel=noopener
           style="text-decoration:underline"
@@ -39,7 +51,7 @@
       </td>
     </tr>
     <tr *ngIf="!rows.length">
-      <td colspan="4" style="text-align:center">No results</td>
+      <td colspan="5" style="text-align:center">No results</td>
     </tr>
   </tbody>
 </table>

@@ -19,17 +19,21 @@ export class HarnessApiService {
     'Accept': 'application/json',
   };
 
-  getEntity(type: string, id: string): Observable<Result> {
-    const url = `${this.baseUrl}/${type}s/${id}`;
-    const slug = `[GET]  /${type}s/${id}`;
+  getEntity(type: string, datasetCode: string, id: string, isList?: boolean): Observable<Result> {
+    let url = `${this.baseUrl}/${type}s/${id}`;
+    let slug = `[GET]  /${type}s/${id}`;
     let headers = new Headers(this.headers);
     let options = new RequestOptions({ headers });
 
-    console.log(`${slug} STARTED...`);
+    if ( isList ) {
+      url += '/lists';
+      slug += '/lists';
+    }
+
     return this.http.get(url, options)
                      .map((res:Response) => {
-                       console.log(`${slug} SUCCESS...Response`, res.json());
-                       return this.parseResponse(type, res);
+                       console.log(`${slug} Response`, res.json());
+                       return this.parseResponse(type, datasetCode, res, isList);
                      })
                      .catch((err:any) => {
                        console.log(`${slug} ERROR!!!`, err);
@@ -37,17 +41,16 @@ export class HarnessApiService {
                      });
   }
 
-  createEntity(type: string, body: Object): Observable<Result> {
+  createEntity(type: string, datasetCode: string, body: Object): Observable<Result> {
     const url = `${this.baseUrl}/${type}s`;
     const slug = `[POST] /${type}s`;
     let headers = new Headers(this.headers);
     let options = new RequestOptions({ headers });
 
-    console.log(`${slug} STARTED...Payload`, body);
     return this.http.post(url, body, options)
                     .map((res:Response) => {
-                      console.log(`${slug} SUCCESS...Response`, res.json());
-                      return this.parseResponse(type, res);
+                      console.log(`${slug} Response`, res.json());
+                      return this.parseResponse(type, datasetCode, res);
                     })
                     .catch((err:any) => {
                       console.log(`${slug} ERROR!!!`, err);
@@ -55,17 +58,16 @@ export class HarnessApiService {
                     });
   }
 
-  pollEntity(type: string, id: string): Observable<Result> {
+  pollEntity(type: string, datasetCode: string, id: string): Observable<Result> {
     const url = `${this.baseUrl}/${type}s/queue-jobs/${id}`;
     const slug = `[GET]  /${type}s/queue-jobs/${id}`;
     let headers = new Headers(this.headers);
     let options = new RequestOptions({ headers });
 
-    console.log(`${slug} STARTED...`);
     return this.http.get(url, options)
                      .map((res:Response) => {
-                       console.log(`${slug} SUCCESS...Response`, res.json());
-                       return this.parseResponse(type, res);
+                       console.log(`${slug} Response`, res.json());
+                       return this.parseResponse(type, datasetCode, res);
                      })
                      .catch((err:any) => {
                        console.log(`${slug} ERROR!!!`, err);
@@ -73,12 +75,22 @@ export class HarnessApiService {
                      });
   }
 
-  private parseResponse(type: string, response: Response): Result {
-    const responseData = response.json().data;
-    return new Result(
+  private parseResponse(type: string, datasetCode: string, response: Response, isList?: boolean): Result {
+    let responseData = response.json().data;
+
+    if ( isList ) { // lists response format is slightly different
+      responseData = responseData[0];
+    }
+
+    const result = new Result(
       responseData.id,
       type,
+      datasetCode,
       responseData.attributes,
     );
+
+    result.attributes.quantity = result.attributes.countQty || result.attributes.listQty;
+
+    return result;
   }
 }

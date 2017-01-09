@@ -15,13 +15,20 @@
 
   <div class="row top-buffer">
     <div class="col-md-12">
-      <results-table [rows]="results"></results-table>
+      <results-table
+        [rows]="results"
+        (onSelectRow)="onSelectCountResult($event)"
+      >
+      </results-table>
     </div>
   </div>
 
   <div class="row top-buffer">
     <div class="col-md-12">
-      <list-criteria-form (onSubmitForm)="onSubmitListCriteriaForm($event)" [countId]="currentCountId"></list-criteria-form>
+      <list-criteria-form
+        (onSubmitForm)="onSubmitListCriteriaForm($event)"
+      >
+      </list-criteria-form>
     </div>
   </div>
 
