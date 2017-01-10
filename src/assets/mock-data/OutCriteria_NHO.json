@@ -1,0 +1,120 @@
+{
+  "outColumns": [{
+    "outputName": "primary_address",
+    "columnId": "primary_address"
+  },
+    {
+      "outputName": "secondary_address",
+      "columnId": "secondary_address"
+    },
+    {
+      "outputName": "city_name_abbr",
+      "columnId": "city_name_abbr"
+    },
+    {
+      "outputName": "state_abbreviation",
+      "columnId": "state_abbreviation"
+    },
+    {
+      "outputName": "carrier_route",
+      "columnId": "carrier_route"
+    },
+    {
+      "outputName": "state_code",
+      "columnId": "state_code"
+    },
+    {
+      "outputName": "county_code",
+      "columnId": "county_code"
+    },
+    {
+      "outputName": "census_2010_tract_and_block_group",
+      "columnId": "census_2010_tract_and_block_group"
+    },
+    {
+      "outputName": "county_name",
+      "columnId": "county_name"
+    },
+    {
+      "outputName": "dwelling_type",
+      "columnId": "dwelling_type"
+    },
+    {
+      "outputName": "recipient_reliability_code",
+      "columnId": "recipient_reliability_code"
+    },
+    {
+      "outputName": "ncoa_move_update_code",
+      "columnId": "ncoa_move_update_code"
+    },
+    {
+      "outputName": "ncoa_move_update_date",
+      "columnId": "ncoa_move_update_date"
+    },
+    {
+      "outputName": "phone_number_1",
+      "columnId": "phone_number_1"
+    },
+    {
+      "outputName": "person_1_surname",
+      "columnId": "person_1_surname"
+    },
+    {
+      "outputName": "person_1_name_suffix",
+      "columnId": "person_1_name_suffix"
+    },
+    {
+      "outputName": "person_1_first_name",
+      "columnId": "person_1_first_name"
+    },
+    {
+      "outputName": "person_1_middle_initial_v2",
+      "columnId": "person_1_middle_initial_v2"
+    },
+    {
+      "outputName": "person_1_name_prefix",
+      "columnId": "person_1_name_prefix"
+    },
+    {
+      "outputName": "mortgagehome_purchase_original_loan_to_value",
+      "columnId": "mortgagehome_purchase_original_loan_to_value"
+    },
+    {
+      "outputName": "mortgagehome_purchase_down_payment_amount",
+      "columnId": "mortgagehome_purchase_down_payment_amount"
+    },
+    {
+      "outputName": "mortgagehome_purchase_home_purchase_date",
+      "columnId": "mortgagehome_purchase_home_purchase_date"
+    },
+    {
+      "outputName": "investment_property_zip_code",
+      "columnId": "investment_property_zip_code"
+    },
+    {
+      "outputName": "investment_property_state_code",
+      "columnId": "investment_property_state_code"
+    },
+    {
+      "outputName": "investment_property_county_code",
+      "columnId": "investment_property_county_code"
+    },
+    {
+      "outputName": "investment_property_state_abbreviation",
+      "columnId": "investment_property_state_abbreviation"
+    },
+    {
+      "outputName": "nho_property_transaction_type",
+      "columnId": "nho_property_transaction_type"
+    },
+    {
+      "outputName": "time_zone",
+      "columnId": "time_zone"
+    }],
+  "dataUsage": "oneTime",
+  "fileCompressionType": "zip",
+  "letterCaseType": "upper",
+  "fileFormat": "csv",
+  "anonymizedData": false,
+  "applySeeding": false
+}

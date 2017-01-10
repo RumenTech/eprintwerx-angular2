@@ -1,0 +1,96 @@
+{
+  "outColumns": [{
+    "outputName": "primary_address",
+    "columnId": "primary_address"
+    },
+    {
+      "outputName": "secondary_address",
+      "columnId": "secondary_address"
+    },
+    {
+      "outputName": "city_name_abbr",
+      "columnId": "city_name_abbr"
+    },
+    {
+      "outputName": "state_abbreviation",
+      "columnId": "state_abbreviation"
+    },
+    {
+      "outputName": "carrier_route",
+      "columnId": "carrier_route"
+    },
+    {
+      "outputName": "county_name",
+      "columnId": "county_name"
+    },
+    {
+      "outputName": "person_1_surname",
+      "columnId": "person_1_surname"
+    },
+    {
+      "outputName": "person_1_name_suffix",
+      "columnId": "person_1_name_suffix"
+    },
+    {
+      "outputName": "person_1_first_name",
+      "columnId": "person_1_first_name"
+    },
+    {
+      "outputName": "person_1_middle_initial_v2",
+      "columnId": "person_1_middle_initial_v2"
+    },
+    {
+      "outputName": "person_1_name_prefix",
+      "columnId": "person_1_name_prefix"
+    },
+    {
+      "outputName": "person_1_marital_status",
+      "columnId": "person_1_marital_status"
+    },
+    {
+      "outputName": "person_1_birth_year_and_month",
+      "columnId": "person_1_birth_year_and_month"
+    },
+    {
+      "outputName": "person_1_gender",
+      "columnId": "person_1_gender"
+    },
+    {
+      "outputName": "previous_address_zip_code",
+      "columnId": "previous_address_zip_code"
+    },
+    {
+      "outputName": "previous_address_zip4_code",
+      "columnId": "previous_address_zip4_code"
+    },
+    {
+      "outputName": "previous_address_address_line_1",
+      "columnId": "previous_address_address_line_1"
+    },
+    {
+      "outputName": "previous_address_address_line_2",
+      "columnId": "previous_address_address_line_2"
+    },
+    {
+      "outputName": "previous_address_city_name",
+      "columnId": "previous_address_city_name"
+    },
+    {
+      "outputName": "previous_address_state_abbreviation",
+      "columnId": "previous_address_state_abbreviation"
+    },
+    {
+      "outputName": "previous_address_state_abbreviation",
+      "columnId": "previous_address_state_abbreviation"
+    },
+    {
+      "outputName": "green_aware",
+      "columnId": "green_aware"
+    }],
+  "dataUsage": "oneTime",
+  "fileCompressionType": "zip",
+  "letterCaseType": "upper",
+  "fileFormat": "csv",
+  "anonymizedData": false,
+  "applySeeding": false
+}
