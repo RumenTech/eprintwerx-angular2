@@ -10,7 +10,6 @@ import { CriteriaService } from '../services/criteria.service';
 export class ListCriteriaForm implements OnInit { 
   @Output() onSubmitForm = new EventEmitter<Object>();
 
-  private isValid = false;
   private sample = '';
   private model = {
     datasetCode: '',
@@ -18,16 +17,32 @@ export class ListCriteriaForm implements OnInit {
     countId: '',
     geoCriteria: '',
     demoCriteria: '',
-    criteriaString: '', // only this field is two-way binding
+  };
+  private jsonEditor = {
+    listCriteria: '', // only this field is two-way binding
+    billingData: '',
+    outCriteria: '',
+    tags: '',
+  };
+  private samples = {
+    listCriteria: '',
+    billingData: '',
+    tags: '',
+  };
+  private isValid = {
+    listCriteria: false,
+    billingData: false,
+    outCriteria: false,
+    tags: false,
   };
 
   constructor(private criteriaService: CriteriaService) {
   }
 
-  onCriteriaChange(value: string) {
-    this.isValid = this.criteriaService.isJsonValid(value);
+  onJsonDataChange(type: string) {
+    this.isValid[ type ] = this.criteriaService.isJsonValid( this.jsonEditor[ type ]);
 
-    if (!this.isValid) {
+    if (!this.isValid[ type ] || type !== 'listCriteria') {
       return;
     }
 
@@ -37,7 +52,7 @@ export class ListCriteriaForm implements OnInit {
       countId,
       geoCriteria,
       demoCriteria
-    } = this.criteriaService.parseListCriteria(value);
+    } = this.criteriaService.parseListCriteria( this.jsonEditor.listCriteria );
 
     this.model.datasetCode = datasetCode;
     this.model.qtyDesired = qtyDesired;
@@ -47,14 +62,18 @@ export class ListCriteriaForm implements OnInit {
   }
 
   submitForm() {
-    if ( !this.criteriaService.isJsonValid(this.model.criteriaString) ) {
+    if ( ! (
+      this.criteriaService.isJsonValid(this.jsonEditor.listCriteria) &&
+      this.criteriaService.isJsonValid(this.jsonEditor.billingData) &&
+      this.criteriaService.isJsonValid(this.jsonEditor.outCriteria) &&
+      this.criteriaService.isJsonValid(this.jsonEditor.tags)
+    ) ) {
       return;
     }
 
-    const parsedJson = JSON.parse(this.model.criteriaString);
     const dataToSend = {
-      datasetCode: parsedJson.datasetCode,
-      payload: this.padExtraInfo(parsedJson),
+      datasetCode: this.model.datasetCode,
+      payload: this.getFullPayload(),
     };
 
     this.onSubmitForm.emit(dataToSend);
@@ -62,59 +81,50 @@ export class ListCriteriaForm implements OnInit {
 
   ngOnInit() {
     EmitterService.get('JSON_FILES_LOADED').subscribe(() => {
-      this.sample = this.criteriaService.getListCriteria();
+      this.samples = this.criteriaService.getMiscSamples();
     });
 
     EmitterService.get('ON_CHANGE_COUNT').subscribe((data) => {
-      const json = JSON.parse(this.sample);
-      json.countId = data.countId;
-      json.datasetCode = data.datasetCode;
+      const listCriteria = JSON.parse(this.samples.listCriteria);
+      listCriteria.countId = data.countId;
+      listCriteria.datasetCode = data.datasetCode;
 
-      this.model.criteriaString = JSON.stringify(json, null, '\t');
+      this.jsonEditor.billingData = this.samples.billingData;
+      this.jsonEditor.tags = this.samples.tags;
+      this.jsonEditor.outCriteria = this.criteriaService.getOutCriteriaByDatasetCode(data.datasetCode);
+      this.jsonEditor.listCriteria = JSON.stringify(listCriteria, null, '\t');
 
-      this.onCriteriaChange(this.model.criteriaString);
+      this.onJsonDataChange('listCriteria');
+      this.onJsonDataChange('outCriteria');
+      this.onJsonDataChange('billingData');
+      this.onJsonDataChange('tags');
     });
   }
 
-  padExtraInfo(json: Object) {
+  getFullPayload() {
+    let listCriteria = JSON.parse(this.jsonEditor.listCriteria);
+    listCriteria.outCriterion = JSON.parse(this.jsonEditor.outCriteria);
+
     return {
       data: {
         type: 'orders',
         attributes: {
           source: 'API',
-          listCriterias: [ json ],
-          tags: {
-            name: 'AugOrder1'
-          },
-          billingData: {
-            salesPerson: 'PS1',
-            firstName: 'John',
-            lastName: 'Doe',
-            company: 'Apple',
-            address1: '1 Infinite Loop',
-            address2: 'Suite 100',
-            city: 'San Francisco',
-            country: 'USA',
-            state: 'CA',
-            zip: '90210',
-            phone: '555-555-5555',
-            fax: '555-555-5566',
-            email: 'john.doe@apple.com',
-            poNumber: 'Apple123',
-            description: 'Standard Optional Description',
-            endUser: 'John',
-            mailerName: 'Mailer1',
-            mailerDate: '2016-04-29T10:25:13Z',
-            invoiceGroup: 'INV001',
-            coupon: 'MyOffer1',
-            billingNotes: 'Some Billing Note',
-            otherEmails: 'john.doe@apple.com;jane.doe@apple.com',
-            otherEmailSubject: 'Your Order Number {ORDERNO} is now ready for download',
-            priceSchema: 'PS1'
-          }
+          listCriterias: [ listCriteria ],
+          tags: JSON.parse(this.jsonEditor.tags),
+          billingData: JSON.parse(this.jsonEditor.billingData),
         }
       }
     };
   }
 
+  isAllValid() {
+    const { listCriteria, billingData, outCriteria, tags } = this.isValid;
+    return listCriteria && billingData && outCriteria && tags;
+  }
+
+  isAllSet() {
+    const { listCriteria, billingData, outCriteria, tags } = this.jsonEditor;
+    return listCriteria && billingData && outCriteria && tags;
+  }
 }

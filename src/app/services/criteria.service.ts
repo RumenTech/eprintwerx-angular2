@@ -9,7 +9,19 @@ export class CriteriaService {
 
   private basePath = './assets/mock-data/';
   private listSampleFile = 'ListCriteria.json';
+  private tagSampleFile = 'Tags.json';
+  private billingDataSampleFile = 'BillingData.json';
   private listSampleCriteria = '';
+  private tagSampleData = '';
+  private billingData = '';
+  private outSampleCriteria = {};
+  private outSamples = [
+    { datasetCode: 'CONSUMER', file: 'OutCriteria_CV.json' },
+    { datasetCode: 'NEWMOVER', file: 'OutCriteria_NM.json' },
+    { datasetCode: 'NEWPARENT', file: 'OutCriteria_NPL.json' },
+    { datasetCode: 'NEWHOMEOWNER', file: 'OutCriteria_NHO.json' },
+    { datasetCode: 'BUSINESS', file: 'OutCriteria_BIS.json' },
+  ];
   private countSampleCriteria = { };
   private countSamples = [
     { type: 'CV_SIMPLE',   display: 'Consumer View - Simple',        file: 'CountCriteria_CV_simple.json' },
@@ -22,8 +34,8 @@ export class CriteriaService {
     { type: 'NPL_MEDIUM',  display: 'Newborn Network - Medium',      file: 'CountCriteria_NPL_Medium.json' },
     { type: 'NPL_COMPLEX', display: 'Newborn Network - Advanced',    file: 'CountCriteria_NPL_Complex.json' },
     { type: 'NHO_SIMPLE',  display: 'New Homeowners - Simple',       file: 'CountCriteria_NHO_Simple.json' },
-    { type: 'NHO_MEDIUM',  display: 'Newborn Homeowners - Medium',   file: 'CountCriteria_NHO_Medium.json' },
-    { type: 'NHO_COMPLEX', display: 'Newborn Homeowners - Advanced', file: 'CountCriteria_NHO_Complex.json' },
+    { type: 'NHO_MEDIUM',  display: 'New Homeowners - Medium',       file: 'CountCriteria_NHO_Medium.json' },
+    { type: 'NHO_COMPLEX', display: 'New Homeowners - Advanced',     file: 'CountCriteria_NHO_Complex.json' },
     { type: 'BIS_SIMPLE',  display: 'US Business - Simple',          file: 'CountCriteria_BIS_Simple.json' },
     { type: 'BIS_MEDIUM',  display: 'US Business - Medium',          file: 'CountCriteria_BIS_Medium.json' },
     { type: 'BIS_COMPLEX', display: 'US Business - Advanced',        file: 'CountCriteria_BIS_Complex.json' },
@@ -32,7 +44,8 @@ export class CriteriaService {
   constructor (private http: Http) {
     Observable.zip(
       this.readCountSamples(),
-      this.readListSample(),
+      this.readOutSamples(),
+      this.readMiscSamples(),
     ).subscribe(() => {
       EmitterService.get('JSON_FILES_LOADED').emit();
     });
@@ -54,13 +67,48 @@ export class CriteriaService {
     return Observable.forkJoin(batch);
   }
 
-  // Read the json file for sample list criteria
-  readListSample() {
-    return this.http.get( this.basePath + this.listSampleFile ).map( res => {
-      if ( this.isJsonValid( res.text() ) ) {
-        this.listSampleCriteria = res.text();
-      }
+  // Read the json files for sample output columns
+  readOutSamples() {
+    let batch = [];
+    this.outSamples.map( sample => {
+      batch.push(
+        this.http.get( this.basePath + sample.file ).map( res => {
+          if ( this.isJsonValid( res.text() ) ) {
+            this.outSampleCriteria[ sample.datasetCode ] = res.text();
+          }
+        })
+      )
     });
+
+    return Observable.forkJoin(batch);
+  }
+
+  // Read the json files for sample list criteria and others
+  readMiscSamples() {
+    let batch = [];
+    batch.push(
+      this.http.get( this.basePath + this.listSampleFile ).map( res => {
+        if ( this.isJsonValid( res.text() ) ) {
+          this.listSampleCriteria = res.text();
+        }
+      })
+    );
+    batch.push(
+      this.http.get( this.basePath + this.tagSampleFile ).map( res => {
+        if ( this.isJsonValid( res.text() ) ) {
+          this.tagSampleData = res.text();
+        }
+      })
+    );
+    batch.push(
+      this.http.get( this.basePath + this.billingDataSampleFile ).map( res => {
+        if ( this.isJsonValid( res.text() ) ) {
+          this.billingData = res.text();
+        }
+      })
+    );
+
+    return Observable.forkJoin(batch);
   }
 
   getCountSamples() {
@@ -71,8 +119,16 @@ export class CriteriaService {
     return this.countSampleCriteria[ type ] || '';
   }
 
-  getListCriteria(): string {
-    return this.listSampleCriteria;
+  getOutCriteriaByDatasetCode(datasetCode: string): string {
+    return this.outSampleCriteria[ datasetCode ] || '';
+  }
+
+  getMiscSamples(): any {
+    return {
+      listCriteria: this.listSampleCriteria,
+      billingData: this.billingData,
+      tags: this.tagSampleData,
+    };
   }
 
   parseGeoCriteria(json): string {
