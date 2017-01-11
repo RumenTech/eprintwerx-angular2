@@ -10,14 +10,14 @@ import { Result } from '../model/result';
 @Injectable()
 export class HarnessApiService {
 
-  constructor (private http: Http) {}
-
   private baseUrl = 'https://test.dataselect.us/public-staging/v1';
   private headers = {
     'x-api-key': 'Egqw4MFFvu3Lgv65tCenr1pwbUN1t4Ee6KcPI0ZK',
     'Content-Type': 'application/json',
     'Accept': 'application/json',
   };
+
+  constructor (private http: Http) {}
 
   getEntity(type: string, datasetCode: string, id: string, isList?: boolean): Observable<Result> {
     let url = `${this.baseUrl}/${type}s/${id}`;
@@ -31,11 +31,11 @@ export class HarnessApiService {
     }
 
     return this.http.get(url, options)
-                     .map((res:Response) => {
+                     .map((res: Response) => {
                        console.log(`${slug} Response`, res.json());
                        return this.parseResponse(type, datasetCode, res, isList);
                      })
-                     .catch((err:any) => {
+                     .catch((err: any) => {
                        console.log(`${slug} ERROR!!!`, err);
                        return Observable.throw('Server error');
                      });
@@ -48,13 +48,13 @@ export class HarnessApiService {
     let options = new RequestOptions({ headers });
 
     return this.http.post(url, body, options)
-                    .map((res:Response) => {
+                    .map((res: Response) => {
                       console.log(`${slug} Response`, res.json());
                       return this.parseResponse(type, datasetCode, res);
                     })
-                    .catch((err:any) => {
+                    .catch((err: any) => {
                       console.log(`${slug} ERROR!!!`, err);
-                      return Observable.throw('Server error')
+                      return Observable.throw('Server error');
                     });
   }
 
@@ -65,11 +65,11 @@ export class HarnessApiService {
     let options = new RequestOptions({ headers });
 
     return this.http.get(url, options)
-                     .map((res:Response) => {
+                     .map((res: Response) => {
                        console.log(`${slug} Response`, res.json());
                        return this.parseResponse(type, datasetCode, res);
                      })
-                     .catch((err:any) => {
+                     .catch((err: any) => {
                        console.log(`${slug} ERROR!!!`, err);
                        return Observable.throw('Server error');
                      });

@@ -61,7 +61,7 @@ export class CriteriaService {
             this.countSampleCriteria[ sample.type ] = res.text();
           }
         })
-      )
+      );
     });
 
     return Observable.forkJoin(batch);
@@ -77,7 +77,7 @@ export class CriteriaService {
             this.outSampleCriteria[ sample.datasetCode ] = res.text();
           }
         })
-      )
+      );
     });
 
     return Observable.forkJoin(batch);

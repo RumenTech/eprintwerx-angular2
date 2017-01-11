@@ -7,7 +7,7 @@ import { CriteriaService } from '../services/criteria.service';
   selector: 'count-criteria-form',
   templateUrl: './count-criteria-form.component.html',
 })
-export class CountCriteriaForm implements OnInit { 
+export class CountCriteriaForm implements OnInit {
   @Input() handleSubmit: Function;
   @Output() onSubmitForm = new EventEmitter<Object>();
 

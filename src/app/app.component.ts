@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable, Subject } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
 
 import { HarnessApiService } from './services/harness-api.service';
 import { EmitterService } from './services/emitter.service';
@@ -13,8 +13,6 @@ import { Result } from './model/result';
 export class AppComponent {
 
   private results: Array<Result> = [];
-  private pollers: { [id: string]: Observable<Result> } = {};
-  private stoppers: { [id: string]: Subject<{}> } = {};
 
   constructor(private apiService:
     HarnessApiService) { }
@@ -33,7 +31,7 @@ export class AppComponent {
         this.results.push(result);
         return this.startPolling(result);
       })
-      .mergeMap( (result: any) => 
+      .mergeMap( (result: any) =>
         this.apiService.getEntity(result.type, result.datasetCode, result.id)
       )
       .subscribe(result => {
@@ -64,10 +62,10 @@ export class AppComponent {
         this.results.push(result);
         return this.startPolling(result);
       })
-      .mergeMap( (result: any) => 
+      .mergeMap( (result: any) =>
         this.apiService.getEntity(result.type, result.datasetCode, result.id)
       )
-      .mergeMap( (result: any) => 
+      .mergeMap( (result: any) =>
         this.apiService.getEntity(result.type, result.datasetCode, result.id, true)
       )
       .subscribe(
@@ -96,16 +94,16 @@ export class AppComponent {
         observer.copmlete(result);
       }
 
-      var subscription = this.apiService.pollEntity(result.type, result.datasetCode, result.id)
-        .expand(result => {
-          return this.apiService.pollEntity(result.type, result.datasetCode, result.id);
+      let subscription = this.apiService.pollEntity(result.type, result.datasetCode, result.id)
+        .expand(result1 => {
+          return this.apiService.pollEntity(result1.type, result1.datasetCode, result1.id);
         })
         .timeout(20000)
         .subscribe(
-          result => {
-            if ( result.attributes.status === 'OK' ) {
+          result2 => {
+            if ( result2.attributes.status === 'OK' ) {
               subscription.unsubscribe();
-              observer.next(result);
+              observer.next(result2);
               observer.complete();
             }
           },
@@ -113,7 +111,8 @@ export class AppComponent {
             observer.error(err);
           }
         );
-     });
+      }
+    );
   }
 
   updateResults(result: Result) {

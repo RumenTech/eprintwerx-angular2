@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 
 import { EmitterService } from '../services/emitter.service';
 import { CriteriaService } from '../services/criteria.service';
@@ -7,10 +7,9 @@ import { CriteriaService } from '../services/criteria.service';
   selector: 'list-criteria-form',
   templateUrl: './list-criteria-form.component.html',
 })
-export class ListCriteriaForm implements OnInit { 
+export class ListCriteriaForm implements OnInit {
   @Output() onSubmitForm = new EventEmitter<Object>();
 
-  private sample = '';
   private model = {
     datasetCode: '',
     qtyDesired: '',
