@@ -2,10 +2,10 @@
   <thead>
     <tr>
       <th width="35%">ID</th>
-      <th width="10%">Type</th>
-      <th width="20%">Dataset Code</th>
-      <th width="10%">Quantity</th>
-      <th width="25%">List Download</th>
+      <th width="15%">Type</th>
+      <th width="15%">Dataset Code</th>
+      <th width="15%">Quantity</th>
+      <th width="20%">List Download</th>
     </tr>
   </thead>
 
@@ -35,8 +35,11 @@
         <span *ngIf="row.attributes.status === 'OK'">
           {{row.attributes.quantity}}
         </span>
-        <span *ngIf="row.attributes.status !== 'OK'">
-          {{row.attributes.status}}...
+        <span *ngIf="row.attributes.status === 'PENDING'">
+          PENDING...
+        </span>
+        <span *ngIf="row.attributes.status !== 'OK' && row.attributes.status !== 'PENDING'">
+          {{row.attributes.status}}
         </span>
       </td>
       <td>

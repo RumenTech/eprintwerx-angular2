@@ -13,6 +13,7 @@ import { Result } from './model/result';
 export class AppComponent {
 
   private results: Array<Result> = [];
+  private TIME_LIMIT = 15;
 
   constructor(private apiService:
     HarnessApiService) { }
@@ -43,7 +44,10 @@ export class AppComponent {
           datasetCode: result.datasetCode,
         });
       }, err => {
-        cachedResult.attributes.status = 'FAILED';
+        cachedResult.attributes.status = 'FAILED!';
+        if (err === 'TIMED_OUT') {
+          cachedResult.attributes.status = 'TIMED OUT!';
+        }
         this.updateResults(cachedResult);
       });
   }
@@ -75,7 +79,10 @@ export class AppComponent {
           this.updateResults(result);
         },
         err => {
-          cachedResult.attributes.status = 'FAILED';
+          cachedResult.attributes.status = 'FAILED!';
+          if (err === 'TIMED_OUT') {
+            cachedResult.attributes.status = 'TIMED OUT!';
+          }
           this.updateResults(cachedResult);
         }
       );
@@ -94,25 +101,34 @@ export class AppComponent {
         observer.copmlete(result);
       }
 
-      let subscription = this.apiService.pollEntity(result.type, result.datasetCode, result.id)
+      let timer = Observable.timer(0, 1000);
+
+      let pollingSubscription = this.apiService.pollEntity(result.type, result.datasetCode, result.id)
         .expand(result1 => {
           return this.apiService.pollEntity(result1.type, result1.datasetCode, result1.id);
         })
-        .timeout(20000)
         .subscribe(
           result2 => {
             if ( result2.attributes.status === 'OK' ) {
-              subscription.unsubscribe();
+              pollingSubscription.unsubscribe();
               observer.next(result2);
               observer.complete();
             }
           },
           err => {
+            pollingSubscription.unsubscribe();
             observer.error(err);
           }
         );
-      }
-    );
+
+      let timerSubscription = timer.subscribe(t => {
+        if (t >= this.TIME_LIMIT) {
+          pollingSubscription.unsubscribe();
+          timerSubscription.unsubscribe();
+          observer.error('TIMED_OUT');
+        }
+      });
+    });
   }
 
   updateResults(result: Result) {
