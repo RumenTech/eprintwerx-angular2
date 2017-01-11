@@ -9,11 +9,7 @@ export class CriteriaService {
 
   private basePath = './assets/mock-data/';
   private listSampleFile = 'ListCriteria.json';
-  private tagSampleFile = 'Tags.json';
-  private billingDataSampleFile = 'BillingData.json';
   private listSampleCriteria = '';
-  private tagSampleData = '';
-  private billingData = '';
   private outSampleCriteria = {};
   private outSamples = [
     { datasetCode: 'CONSUMER', file: 'OutCriteria_CV.json' },
@@ -45,7 +41,7 @@ export class CriteriaService {
     Observable.zip(
       this.readCountSamples(),
       this.readOutSamples(),
-      this.readMiscSamples(),
+      this.readListSample(),
     ).subscribe(() => {
       EmitterService.get('JSON_FILES_LOADED').emit();
     });
@@ -84,26 +80,12 @@ export class CriteriaService {
   }
 
   // Read the json files for sample list criteria and others
-  readMiscSamples() {
+  readListSample() {
     let batch = [];
     batch.push(
       this.http.get( this.basePath + this.listSampleFile ).map( res => {
         if ( this.isJsonValid( res.text() ) ) {
           this.listSampleCriteria = res.text();
-        }
-      })
-    );
-    batch.push(
-      this.http.get( this.basePath + this.tagSampleFile ).map( res => {
-        if ( this.isJsonValid( res.text() ) ) {
-          this.tagSampleData = res.text();
-        }
-      })
-    );
-    batch.push(
-      this.http.get( this.basePath + this.billingDataSampleFile ).map( res => {
-        if ( this.isJsonValid( res.text() ) ) {
-          this.billingData = res.text();
         }
       })
     );
@@ -123,12 +105,8 @@ export class CriteriaService {
     return this.outSampleCriteria[ datasetCode ] || '';
   }
 
-  getMiscSamples(): any {
-    return {
-      listCriteria: this.listSampleCriteria,
-      billingData: this.billingData,
-      tags: this.tagSampleData,
-    };
+  getListCriteriaSample(): string {
+    return this.listSampleCriteria || '';
   }
 
   parseGeoCriteria(json): string {
@@ -159,13 +137,14 @@ export class CriteriaService {
 
   parseListCriteria(str: string) {
     const parsedJson = JSON.parse(str) || {};
+    const listCriteria = parsedJson.listCriterias[0] || {};
 
     return {
-      datasetCode: parsedJson.datasetCode || '',
-      qtyDesired: parsedJson.qtyDesired || '',
-      countId: parsedJson.countId || '',
-      geoCriteria: this.parseGeoCriteria(parsedJson),
-      demoCriteria: this.parseDemoCriteria(parsedJson),
+      datasetCode: listCriteria.datasetCode || '',
+      qtyDesired: listCriteria.qtyDesired || '',
+      countId: listCriteria.countId || '',
+      geoCriteria: this.parseGeoCriteria(listCriteria),
+      demoCriteria: this.parseDemoCriteria(listCriteria),
     };
   }
 

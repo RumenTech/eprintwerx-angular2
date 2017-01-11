@@ -17,31 +17,16 @@ export class ListCriteriaForm implements OnInit {
     geoCriteria: '',
     demoCriteria: '',
   };
-  private jsonEditor = {
-    listCriteria: '', // only this field is two-way binding
-    billingData: '',
-    outCriteria: '',
-    tags: '',
-  };
-  private samples = {
-    listCriteria: '',
-    billingData: '',
-    tags: '',
-  };
-  private isValid = {
-    listCriteria: false,
-    billingData: false,
-    outCriteria: false,
-    tags: false,
-  };
+  private listCriteriaString = '';
+  private isValid = false;
 
   constructor(private criteriaService: CriteriaService) {
   }
 
-  onJsonDataChange(type: string) {
-    this.isValid[ type ] = this.criteriaService.isJsonValid( this.jsonEditor[ type ]);
+  onListCriteriaChange() {
+    this.isValid = this.criteriaService.isJsonValid( this.listCriteriaString );
 
-    if (!this.isValid[ type ] || type !== 'listCriteria') {
+    if (!this.isValid) {
       return;
     }
 
@@ -51,7 +36,7 @@ export class ListCriteriaForm implements OnInit {
       countId,
       geoCriteria,
       demoCriteria
-    } = this.criteriaService.parseListCriteria( this.jsonEditor.listCriteria );
+    } = this.criteriaService.parseListCriteria( this.listCriteriaString );
 
     this.model.datasetCode = datasetCode;
     this.model.qtyDesired = qtyDesired;
@@ -61,12 +46,7 @@ export class ListCriteriaForm implements OnInit {
   }
 
   submitForm() {
-    if ( ! (
-      this.criteriaService.isJsonValid(this.jsonEditor.listCriteria) &&
-      this.criteriaService.isJsonValid(this.jsonEditor.billingData) &&
-      this.criteriaService.isJsonValid(this.jsonEditor.outCriteria) &&
-      this.criteriaService.isJsonValid(this.jsonEditor.tags)
-    ) ) {
+    if ( !this.criteriaService.isJsonValid(this.listCriteriaString) ) {
       return;
     }
 
@@ -79,51 +59,29 @@ export class ListCriteriaForm implements OnInit {
   }
 
   ngOnInit() {
-    EmitterService.get('JSON_FILES_LOADED').subscribe(() => {
-      this.samples = this.criteriaService.getMiscSamples();
-    });
-
     EmitterService.get('ON_CHANGE_COUNT').subscribe((data) => {
-      const listCriteria = JSON.parse(this.samples.listCriteria);
-      listCriteria.countId = data.countId;
-      listCriteria.datasetCode = data.datasetCode;
+      const jsonObject = JSON.parse(this.criteriaService.getListCriteriaSample());
+      const outputColumns = JSON.parse(this.criteriaService.getOutCriteriaByDatasetCode(data.datasetCode));
 
-      this.jsonEditor.billingData = this.samples.billingData;
-      this.jsonEditor.tags = this.samples.tags;
-      this.jsonEditor.outCriteria = this.criteriaService.getOutCriteriaByDatasetCode(data.datasetCode);
-      this.jsonEditor.listCriteria = JSON.stringify(listCriteria, null, '\t');
+      if (jsonObject.listCriterias.length) {
+        jsonObject.listCriterias[0].countId = data.countId;
+        jsonObject.listCriterias[0].datasetCode = data.datasetCode;
+        jsonObject.listCriterias[0].outCriterion = outputColumns;
+      }
 
-      this.onJsonDataChange('listCriteria');
-      this.onJsonDataChange('outCriteria');
-      this.onJsonDataChange('billingData');
-      this.onJsonDataChange('tags');
+      this.listCriteriaString = JSON.stringify(jsonObject, null, '\t');
+      this.onListCriteriaChange();
     });
   }
 
   getFullPayload() {
-    let listCriteria = JSON.parse(this.jsonEditor.listCriteria);
-    listCriteria.outCriterion = JSON.parse(this.jsonEditor.outCriteria);
+    let listCriteria = JSON.parse(this.listCriteriaString);
 
     return {
       data: {
         type: 'orders',
-        attributes: {
-          source: 'API',
-          listCriterias: [ listCriteria ],
-          tags: JSON.parse(this.jsonEditor.tags),
-          billingData: JSON.parse(this.jsonEditor.billingData),
-        }
+        attributes: listCriteria
       }
     };
-  }
-
-  isAllValid() {
-    const { listCriteria, billingData, outCriteria, tags } = this.isValid;
-    return listCriteria && billingData && outCriteria && tags;
-  }
-
-  isAllSet() {
-    const { listCriteria, billingData, outCriteria, tags } = this.jsonEditor;
-    return listCriteria && billingData && outCriteria && tags;
   }
 }

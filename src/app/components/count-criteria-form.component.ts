@@ -36,7 +36,7 @@ export class CountCriteriaForm implements OnInit {
       return;
     }
 
-    const { datasetCode, geoCriteria, demoCriteria } = 
+    const { datasetCode, geoCriteria, demoCriteria } =
                                 this.criteriaService.parseCountCriteria(text);
 
     this.model.datasetCode = datasetCode;
