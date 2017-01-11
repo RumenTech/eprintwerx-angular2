@@ -137,14 +137,15 @@ export class CriteriaService {
 
   parseListCriteria(str: string) {
     const parsedJson = JSON.parse(str) || {};
-    const listCriteria = parsedJson.listCriterias[0] || {};
+    let listCriteria: any = {};
+    if (parsedJson.listCriterias && parsedJson.listCriterias.length) {
+      listCriteria = parsedJson.listCriterias[0];
+    }
 
     return {
       datasetCode: listCriteria.datasetCode || '',
       qtyDesired: listCriteria.qtyDesired || '',
       countId: listCriteria.countId || '',
-      geoCriteria: this.parseGeoCriteria(listCriteria),
-      demoCriteria: this.parseDemoCriteria(listCriteria),
     };
   }
 

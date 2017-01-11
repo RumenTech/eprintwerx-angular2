@@ -14,8 +14,6 @@ export class ListCriteriaForm implements OnInit {
     datasetCode: '',
     qtyDesired: '',
     countId: '',
-    geoCriteria: '',
-    demoCriteria: '',
   };
   private listCriteriaString = '';
   private isValid = false;
@@ -34,15 +32,11 @@ export class ListCriteriaForm implements OnInit {
       datasetCode,
       qtyDesired,
       countId,
-      geoCriteria,
-      demoCriteria
     } = this.criteriaService.parseListCriteria( this.listCriteriaString );
 
     this.model.datasetCode = datasetCode;
     this.model.qtyDesired = qtyDesired;
     this.model.countId = countId;
-    this.model.geoCriteria = geoCriteria;
-    this.model.demoCriteria = demoCriteria;
   }
 
   submitForm() {
@@ -63,7 +57,7 @@ export class ListCriteriaForm implements OnInit {
       const jsonObject = JSON.parse(this.criteriaService.getListCriteriaSample());
       const outputColumns = JSON.parse(this.criteriaService.getOutCriteriaByDatasetCode(data.datasetCode));
 
-      if (jsonObject.listCriterias.length) {
+      if (jsonObject.listCriterias && jsonObject.listCriterias.length) {
         jsonObject.listCriterias[0].countId = data.countId;
         jsonObject.listCriterias[0].datasetCode = data.datasetCode;
         jsonObject.listCriterias[0].outCriterion = outputColumns;
