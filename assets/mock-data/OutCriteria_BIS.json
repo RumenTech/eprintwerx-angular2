@@ -1,0 +1,120 @@
+{
+  "outColumns": [{
+    "outputName": "primary_address",
+    "columnId": "primary_address"
+  },
+    {
+      "outputName": "ig_city_name_abbr",
+      "columnId": "ig_city_name_abbr"
+    },
+    {
+      "outputName": "state_abbreviation",
+      "columnId": "state_abbreviation"
+    },
+    {
+      "outputName": "zip_code",
+      "columnId": "zip_code"
+    },
+    {
+      "outputName": "zip4",
+      "columnId": "zip4"
+    },
+    {
+      "outputName": "state_code",
+      "columnId": "state_code"
+    },
+    {
+      "outputName": "county_code",
+      "columnId": "county_code"
+    },
+    {
+      "outputName": "carrier_route",
+      "columnId": "carrier_route"
+    },
+    {
+      "outputName": "core_based_statistical_areas_cbsa",
+      "columnId": "core_based_statistical_areas_cbsa"
+    },
+    {
+      "outputName": "cbsa_description",
+      "columnId": "cbsa_description"
+    },
+    {
+      "outputName": "ig_cbsa_type",
+      "columnId": "ig_cbsa_type"
+    },
+    {
+      "outputName": "csacode",
+      "columnId": "csacode"
+    },
+    {
+      "outputName": "bis_bankruptcy_indicator",
+      "columnId": "bis_bankruptcy_indicator"
+    },
+    {
+      "outputName": "bis_judgment_indicator",
+      "columnId": "bis_judgment_indicator"
+    },
+    {
+      "outputName": "bis_tax_lien_indicator",
+      "columnId": "bis_tax_lien_indicator"
+    },
+    {
+      "outputName": "bis_payment_indicator",
+      "columnId": "bis_payment_indicator"
+    },
+    {
+      "outputName": "bis_median_credit_amount",
+      "columnId": "bis_median_credit_amount"
+    },
+    {
+      "outputName": "bis_total_combined_tradelines",
+      "columnId": "bis_total_combined_tradelines"
+    },
+    {
+      "outputName": "ig_primary_address_primary_number",
+      "columnId": "ig_primary_address_primary_number"
+    },
+    {
+      "outputName": "ig_primary_address_street_name",
+      "columnId": "ig_primary_address_street_name"
+    },
+    {
+      "outputName": "ig_primary_address_street_suffix",
+      "columnId": "ig_primary_address_street_suffix"
+    },
+    {
+      "outputName": "ig_primary_address_trailing_direction",
+      "columnId": "ig_primary_address_trailing_direction"
+    },
+    {
+      "outputName": "ig_secondary_address_primary_number",
+      "columnId": "ig_secondary_address_primary_number"
+    },
+    {
+      "outputName": "ig_secondary_address_pre_direction",
+      "columnId": "ig_secondary_address_pre_direction"
+    },
+    {
+      "outputName": "ig_secondary_address_street_name",
+      "columnId": "ig_secondary_address_street_name"
+    },
+    {
+      "outputName": "ig_secondary_address_street_suffix",
+      "columnId": "ig_secondary_address_street_suffix"
+    },
+    {
+      "outputName": "ig_secondary_address_post_direction",
+      "columnId": "ig_secondary_address_post_direction"
+    },
+    {
+      "outputName": "bis_commercial_intelliscore_224",
+      "columnId": "bis_commercial_intelliscore_224"
+    }],
+  "dataUsage": "oneTime",
+  "fileCompressionType": "zip",
+  "letterCaseType": "upper",
+  "fileFormat": "csv",
+  "anonymizedData": false,
+  "applySeeding": false
+}

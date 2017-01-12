@@ -1,0 +1,120 @@
+{
+  "outColumns": [{
+    "outputName": "primary_address",
+    "columnId": "primary_address"
+  },
+    {
+      "outputName": "secondary_address",
+      "columnId": "secondary_address"
+    },
+    {
+      "outputName": "city_name_abbr",
+      "columnId": "city_name_abbr"
+    },
+    {
+      "outputName": "state_abbreviation",
+      "columnId": "state_abbreviation"
+    },
+    {
+      "outputName": "carrier_route",
+      "columnId": "carrier_route"
+    },
+    {
+      "outputName": "state_code",
+      "columnId": "state_code"
+    },
+    {
+      "outputName": "county_code",
+      "columnId": "county_code"
+    },
+    {
+      "outputName": "census_2010_tract_and_block_group",
+      "columnId": "census_2010_tract_and_block_group"
+    },
+    {
+      "outputName": "county_name",
+      "columnId": "county_name"
+    },
+    {
+      "outputName": "dwelling_type",
+      "columnId": "dwelling_type"
+    },
+    {
+      "outputName": "recipient_reliability_code",
+      "columnId": "recipient_reliability_code"
+    },
+    {
+      "outputName": "ncoa_move_update_code",
+      "columnId": "ncoa_move_update_code"
+    },
+    {
+      "outputName": "ncoa_move_update_date",
+      "columnId": "ncoa_move_update_date"
+    },
+    {
+      "outputName": "phone_number_1",
+      "columnId": "phone_number_1"
+    },
+    {
+      "outputName": "person_1_surname",
+      "columnId": "person_1_surname"
+    },
+    {
+      "outputName": "person_1_name_suffix",
+      "columnId": "person_1_name_suffix"
+    },
+    {
+      "outputName": "person_1_first_name",
+      "columnId": "person_1_first_name"
+    },
+    {
+      "outputName": "person_1_middle_initial_v2",
+      "columnId": "person_1_middle_initial_v2"
+    },
+    {
+      "outputName": "person_1_name_prefix",
+      "columnId": "person_1_name_prefix"
+    },
+    {
+      "outputName": "person_1_marital_status",
+      "columnId": "person_1_marital_status"
+    },
+    {
+      "outputName": "core_based_statistical_areas_cbsa",
+      "columnId": "core_based_statistical_areas_cbsa"
+    },
+    {
+      "outputName": "core_based_statistical_area_type",
+      "columnId": "core_based_statistical_area_type"
+    },
+    {
+      "outputName": "est_hh_income_amount_v5",
+      "columnId": "est_hh_income_amount_v5"
+    },
+    {
+      "outputName": "est_household_income_v5",
+      "columnId": "est_household_income_v5"
+    },
+    {
+      "outputName": "ds_key_offer_type_baby_food",
+      "columnId": "ds_key_offer_type_baby_food"
+    },
+    {
+      "outputName": "ds_key_offer_type_baby_furniture",
+      "columnId": "ds_key_offer_type_baby_furniture"
+    },
+    {
+      "outputName": "ds_key_offer_type_diapers",
+      "columnId": "ds_key_offer_type_diapers"
+    },
+    {
+      "outputName": "ds_key_offer_type_magazines",
+      "columnId": "ds_key_offer_type_magazines"
+    }],
+  "dataUsage": "oneTime",
+  "fileCompressionType": "zip",
+  "letterCaseType": "upper",
+  "fileFormat": "csv",
+  "anonymizedData": false,
+  "applySeeding": false
+}
